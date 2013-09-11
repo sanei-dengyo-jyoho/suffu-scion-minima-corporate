@@ -1,0 +1,19 @@
+/**
+ * Theme Name: Suffu-scion
+ * Theme URI: http://your.theme.uri/
+ * Description: A starter child theme for Suffusion. In the line that says "Tags:" below, add buddypress if this is being used for BuddyPress. E.g. "Tags: buddypress"
+ * Version: 1.0.0
+ * Author: Sayontan Sinha
+ * Author URI: http://mynethome.net/blog
+ * Announcements Feed: http://aquoid.com/news/category/theme-releases/feed/
+ * License: GNU General Public License (GPL), v3 (or newer)
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * Template: suffusion
+ * Tags:
+ *
+ * Copyright (c) 2009 - 2012 Sayontan Sinha. All rights reserved.
+ */
+
+ /***********************************************************/
+
+@import url('style-add.css');
