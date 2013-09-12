@@ -29,6 +29,29 @@ function ad_custom_head() {
 		<![endif]-->
 		<link type="text/css" href="'.get_bloginfo('url').'/wp-content/css-custom/user-custom.css" rel="stylesheet" media="all" />
 		<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/user-plugin.js"></script>
+		<script type="text/javascript">
+			jQuery.noConflict();
+			jQuery(document).ready(function() {
+				// 固定ナビゲーション
+				var d = jQuery("#nav");
+				var c = d.offset().top + 200;
+				jQuery(window).scroll(function () {
+					var a = jQuery(this).scrollTop();
+					if (a >= c) {
+						d.addClass("nav-fixed")
+					} else {
+						if (a <= c) {
+							d.removeClass("nav-fixed")
+						};
+					};
+				});
+				jQuery("li", d).hover(function () {
+					jQuery("ul", this).slideDown()
+				}, function () {
+					jQuery("ul", this).slideUp()
+				});
+			});
+		</script>
 		<!--[if lt IE 7]>
 			<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/IE7.js"></script>
 			<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/ie7-squish.js"></script>
