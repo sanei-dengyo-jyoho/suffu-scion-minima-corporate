@@ -31,12 +31,11 @@ else {
 
 		<div class="entry">
 		<p></p>
-		<div class="raised3d">
-			<p>
-				<span class="go3d">4</span>
-				<span class="go3d">0</span>
-				<span class="go3d">4</span>
-			</p>
+		<div class="flatshadow">
+			<div data-angle="SE" class="flat-icon animate"> 4 </div>
+			<div data-angle="SE" class="flat-icon animate"> 0 </div>
+			<div data-angle="SE" class="flat-icon animate"> 4 </div>
+			<div data-angle="SE" class="flat-icon animate"> ! </div>
 		</div>
 		<p></p>
 		<p>

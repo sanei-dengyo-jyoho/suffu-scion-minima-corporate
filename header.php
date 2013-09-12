@@ -50,7 +50,15 @@ if (function_exists('icl_t')) {
 ?>
 
 <?php if ( is_404() ) { ?>
-	<link rel="stylesheet" type="text/css" href="<?php bloginfo('stylesheet_directory'); ?>/404.css" />
+	<script type="text/javascript">
+		jQuery.noConflict();
+		jQuery(document).ready(function() {
+			jQuery(".flat-icon").flatshadow({
+				fade: true,
+				boxShadow: "#d7cfb9"
+			});
+		});
+	</script>
 <?php } ?>
 
 </head>
