@@ -65,8 +65,6 @@ function sc_timelineEvent($atts, $content = null) {
 			<dd id="'.$id.'EX" class="timelineEvent" style="display: none;">'.$eventTag.do_shortcode($content).'</dd>
 		</dl>
 	';
-	
-	unset($eventTag);
 }
 add_shortcode('timelineEvent', 'sc_timelineEvent');
 
@@ -91,9 +89,6 @@ function sc_timelineEventSingle($atts, $content = null) {
 			<dd>'.$eventTag.do_shortcode($content).$descTag.'</dd>
 		</dl>
 	';
-	
-	unset($eventTag);
-	unset($descTag);
 }
 add_shortcode('timelineEventSingle', 'sc_timelineEventSingle');
 
@@ -136,8 +131,6 @@ function sc_timelineGallery($atts) {
 			</div>'.$credTag.$descTag
 		;
 	}
-	unset($credTag);
-	unset($descTag);
 }
 add_shortcode('timelineGallery', 'sc_timelineGallery');
 
@@ -157,9 +150,6 @@ function sc_timelineEmbed($atts, $content = null) {
 		$descTag = '<p class="desc">'.$desc.'</p>';
 	}
 	return '<div>'.do_shortcode($content).'</div>'.$credTag.$descTag;
-
-	unset($credTag);
-	unset($descTag);
 }
 add_shortcode('timelineEmbed', 'sc_timelineEmbed');
 
@@ -179,10 +169,6 @@ function sc_timelineInfoList($atts) {
 		}
 	}
 	return '<ul class="moreInfo">'.$liTag.'</ul>';
-	
-	unset($liTag);
-	unset($i);
-	unset($array);
 }
 add_shortcode('timelineInfoList', 'sc_timelineInfoList');
 
