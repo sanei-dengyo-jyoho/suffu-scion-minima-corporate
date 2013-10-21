@@ -25,7 +25,7 @@ function sc_timeline($atts, $content = null) {
 	return '
 		<div id="timelineContainer" style="'.$style.'">
 			<div class="timelineToggle">
-				<small><a class="expandAll expandAllclosed">すべて展開する</a></small>
+				<small><a class="expandAll expandAllclosed"></a></small>
 			</div>
 			<br class="clear" />'.do_shortcode($content).'<br class="clear" />
 		</div>
@@ -123,7 +123,7 @@ function sc_timelineGallery($atts) {
 		}
 		return '
 			<div class="gallery default">
-				<div class="gallery-item">
+				<div class="gallery-icon">
 					<a href="'.$url.'" rel="'.$rel.'">
 						<img title="'.$title.'" src="'.$url.'" alt="" />
 					</a>
