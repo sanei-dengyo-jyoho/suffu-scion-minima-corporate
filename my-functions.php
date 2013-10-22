@@ -35,13 +35,14 @@ function ad_custom_head() {
 		<!--[if lt IE 10]>
 			<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/enhance.js"></script>
 			<script type="text/javascript">
-				enhance({
-					loadScripts: [
-						{src: "'.get_bloginfo('url').'/wp-content/js-custom/excanvas.js", iecondition: "all"}
-					]
-				});
+			enhance({
+				loadScripts: [
+					{src: "'.get_bloginfo('url').'/wp-content/js-custom/excanvas.js", iecondition: "all"}
+				]
+			});
 			</script>
 		<![endif]-->
+		<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/user-custom.js"></script>
 		' ;
 	}
 }
