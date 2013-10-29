@@ -992,24 +992,21 @@ div#trust-form.contact-form table td ul li {
 	font-family: 'FontAwesome' !important;
 	font-weight: inherit !important;
 	font-style: inherit !important;
-	font-size: 1em !important;
+	font-size: inherit !important;
 	text-decoration: inherit !important;
 	margin: 0 .3em 0 0 !important;
 	padding: 0 !important;
 	display: inline-block !important;
 	speak: none !important;
 
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale !important;
+
 	-webkit-text-rendering: optimizeLegibility !important;
 	-moz-text-rendering: optimizeLegibility !important;
 	-ms-text-rendering: optimizeLegibility !important;
 	-o-text-rendering: optimizeLegibility !important;
 	text-rendering: optimizeLegibility !important;
-
-	-webkit-font-smoothing: antialiased !important;
-	-moz-font-smoothing: antialiased !important;
-	-ms-font-smoothing: antialiased !important;
-	-o-font-smoothing: antialiased !important;
-	font-smoothing: antialiased !important;
 
 	-webkit-transition: all .3s !important;
 	-moz-transition: all .3s !important;
@@ -1029,7 +1026,7 @@ div#trust-form.contact-form table td ul li {
 }
 
 /* icon-caret-right */
-.colomat-close:before{
+.colomat-close:before {
 	content: "\f0da" !important;
 }
 .colomat-close:hover {

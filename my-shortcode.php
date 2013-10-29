@@ -5,211 +5,285 @@
 //******************************************************************************
 // Google Charts
 //******************************************************************************
-function sc_gchart($atts) {
-	extract(shortcode_atts(array(
+function sc_gchart( $atts ) {
+	extract( shortcode_atts( array(
 			'id' => 'gchart_div',
 			'style' => '',
-	), $atts));
-	return '<div id="'.$id.'" style="'.$style.'"></div>';
+	), $atts ) );
+	$styledata = '';
+	if ( $style != '' ) {
+		$styledata = ' style="'.$style.'"';
+	}
+	return '<div id="'.$id.'"'.$styledata.'></div>';
 }
-add_shortcode('gchart', 'sc_gchart');
+add_shortcode( 'gchart', 'sc_gchart' );
 
 
 //******************************************************************************
 // Timeliner
 //******************************************************************************
-function sc_timeline($atts, $content = null) {
-	extract(shortcode_atts(array(
+function sc_timeline( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'style' => '',
-	), $atts));
-	return '
-		<div id="timelineContainer" style="'.$style.'">
-			<div class="timelineToggle">
-				<small><a class="expandAll expandAllclosed"></a></small>
-			</div>
-			<br class="clear" />'.do_shortcode($content).'<br class="clear" />
-		</div>
-	';
+	), $atts ) );
+	$styledata = '';
+	if ( $style != '' ) {
+		$styledata = ' style="'.$style.'"';
+	}
+	$ret  = '';
+	$ret .= '<div id="timelineContainer"'.$styledata.'>';
+	$ret .= '<div class="timelineToggle">';
+	$ret .= '<small><a class="expandAll expandAllclosed"></a></small>';
+	$ret .= '</div>';
+	$ret .= '<br class="clear" />'.do_shortcode( $content ).'<br class="clear" />';
+	$ret .= '</div>';
+	return $ret;
 }
-add_shortcode('timeline', 'sc_timeline');
+add_shortcode( 'timeline', 'sc_timeline' );
 
-function sc_timelineGroup($atts, $content = null) {
-	extract(shortcode_atts(array(
+
+function sc_timelineGroup( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'title' => '',
 			'tag' => 'h2',
-	), $atts));
-	return '
-		<div class="timelineMajor">
-			<'.$tag.' class="timelineMajorMarker"><span><a>'.$title.'</a></span></'.$tag.'>
-			'.do_shortcode($content).'
-		</div>
-	';
+	), $atts ) );
+	$ret  = '';
+	$ret .= '<div class="timelineMajor">';
+	$ret .= '<'.$tag.' class="timelineMajorMarker"><span><a>'.$title.'</a></span></'.$tag.'>';
+	$ret .= do_shortcode( $content );
+	$ret .= '</div>';
+	return $ret;
 }
-add_shortcode('timelineGroup', 'sc_timelineGroup');
+add_shortcode( 'timelineGroup', 'sc_timelineGroup' );
 
-function sc_timelineEvent($atts, $content = null) {
-	extract(shortcode_atts(array(
+
+function sc_timelineEvent( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'id' => '',
 			'title' => '',
 			'event' => '',
 			'tag' => '',
-	), $atts));
-	if ($tag == '') {
-		$eventTag = '';
-	} else {
+	), $atts ) );
+	$eventTag = '';
+	if ( $tag != '' ) {
 		$eventTag = '<'.$tag.'>'.$event.'</'.$tag.'>';
 	}
-	return '
-		<dl class="timelineMinor">
-			<dt id="'.$id.'"><a>'.$title.'</a><small id="'.$id.'DT" class="timelineEventDT">'.$event.'</small></dt>
-			<dd id="'.$id.'EX" class="timelineEvent" style="display: none;">'.$eventTag.do_shortcode($content).'</dd>
-		</dl>
-	';
+	$ret  = '';
+	$ret .= '<dl class="timelineMinor">';
+	$ret .= '<dt id="'.$id.'">';
+	$ret .= '<a>'.$title.'</a>';
+	$ret .= '<small id="'.$id.'DT" class="timelineEventDT">'.$event.'</small>';
+	$ret .= '</dt>';
+	$ret .= '<dd id="'.$id.'EX" class="timelineEvent" style="display: none;">';
+	$ret .= $eventTag;
+	$ret .= do_shortcode( $content );
+	$ret .= '</dd>';
+	$ret .= '</dl>';
+	return $ret;
 }
-add_shortcode('timelineEvent', 'sc_timelineEvent');
+add_shortcode( 'timelineEvent', 'sc_timelineEvent' );
 
-function sc_timelineEventSingle($atts, $content = null) {
-	extract(shortcode_atts(array(
+
+function sc_timelineEventSingle( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'event' => '',
 			'tag' => 'h3',
 			'desc' => '',
-	), $atts));
-	if ($tag == '') {
-		$eventTag = '';
-	} else {
+	), $atts ) );
+	$eventTag = '';
+	if ( $tag != '' ) {
 		$eventTag = '<'.$tag.'>'.$event.'</'.$tag.'>';
 	}
-	if ($desc == '') {
-		$descTag = '';
-	} else {
+	$descTag = '';
+	if ( $desc != '' ) {
 		$descTag = '<p class="desc">'.$desc.'</p>';
 	}
-	return '
-		<dl class="timelineMinor">
-			<dd>'.$eventTag.do_shortcode($content).$descTag.'</dd>
-		</dl>
-	';
+	$ret  = '';
+	$ret .= '<dl class="timelineMinor">';
+	$ret .= '<dd>';
+	$ret .= $eventTag;
+	$ret .= do_shortcode( $content );
+	$ret .= $descTag;
+	$ret .= '</dd>';
+	$ret .= '</dl>';
+	return $ret;
 }
-add_shortcode('timelineEventSingle', 'sc_timelineEventSingle');
+add_shortcode( 'timelineEventSingle', 'sc_timelineEventSingle' );
 
-function sc_timelineMedia($atts, $content = null) {
-	extract(shortcode_atts(array(
+
+function sc_timelineMedia( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'style' => '',
-	), $atts));
-	return '<div class="media" style="'.$style.'">'.do_shortcode($content).'</div>';
+	), $atts ) );
+	$styledata = '';
+	if ( $style != '' ) {
+		$styledata = ' style="'.$style.'"';
+	}
+	$ret  = '';
+	$ret .= '<div class="media"'.$styledata.'>';
+	$ret .= do_shortcode( $content );
+	$ret .= '</div>';
+	return $ret;
 }
-add_shortcode('timelineMedia', 'sc_timelineMedia');
+add_shortcode( 'timelineMedia', 'sc_timelineMedia' );
 
-function sc_timelineGallery($atts) {
-	extract(shortcode_atts(array(
+
+function sc_timelineGallery( $atts ) {
+	extract( shortcode_atts( array(
 			'url' => '',
 			'title' => '',
 			'cred' => '',
 			'desc' => '',
 			'rel' => 'shadowbox[album]',
-	), $atts));
-	if ($url == '') {
-		return '';
-	} else {
-		if ($cred == '') {
-			$credTag = '';
-		} else {
+	), $atts ) );
+	$ret = '';
+	if ( $url != '' ) {
+		$credTag = '';
+		if ( $cred != '' ) {
 			$credTag = '<p class="cred"><small>'.$cred.'</small></p>';
 		}
-		if ($desc == '') {
-			$descTag = '';
-		} else {
+		$descTag = '';
+		if ( $desc != '' ) {
 			$descTag = '<p class="desc">'.$desc.'</p>';
 		}
-		return '
-			<div class="gallery default">
-				<div class="gallery-icon">
-					<a href="'.$url.'" rel="'.$rel.'">
-						<img title="'.$title.'" src="'.$url.'" alt="" />
-					</a>
-				</div>
-			</div>'.$credTag.$descTag
-		;
+		$ret = '';
+		$ret .= '<div class="gallery default">';
+		$ret .= '<div class="gallery-icon">';
+		$ret .= '<a href="'.$url.'" rel="'.$rel.'">';
+		$ret .= '<img title="'.$title.'" src="'.$url.'" alt="" />';
+		$ret .= '</a>';
+		$ret .= '</div>';
+		$ret .= '</div>';
+		$ret .= $credTag;
+		$ret .= $descTag;
 	}
+	return $ret;
 }
-add_shortcode('timelineGallery', 'sc_timelineGallery');
+add_shortcode( 'timelineGallery', 'sc_timelineGallery' );
 
-function sc_timelineEmbed($atts, $content = null) {
-	extract(shortcode_atts(array(
+
+function sc_timelineEmbed( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'cred' => '',
 			'desc' => '',
-	), $atts));
-	if ($cred == '') {
-		$credTag = '';
-	} else {
+	), $atts ) );
+	$credTag = '';
+	if ( $cred != '' ) {
 		$credTag = '<p class="cred"><small>'.$cred.'</small></p>';
 	}
-	if ($desc == '') {
-		$descTag = '';
-	} else {
+	$descTag = '';
+	if ( $desc != '' ) {
 		$descTag = '<p class="desc">'.$desc.'</p>';
 	}
-	return '<div>'.do_shortcode($content).'</div>'.$credTag.$descTag;
+	$ret  = '';
+	$ret .= '<div>';
+	$ret .= do_shortcode( $content );
+	$ret .= '</div>';
+	$ret .= $credTag;
+	$ret .= $descTag;
+	return $ret;
 }
-add_shortcode('timelineEmbed', 'sc_timelineEmbed');
+add_shortcode( 'timelineEmbed', 'sc_timelineEmbed' );
 
-function sc_timelineInfoList($atts) {
-	extract(shortcode_atts(array(
+
+function sc_timelineInfoList( $atts ) {
+	extract( shortcode_atts( array(
 			'list' => '',
 			'delim' => '::::',
-	), $atts));
-	if ($list == '') {
-		$liTag = '';
-	} else {
-		$liTag = '';
-		$array = explode($delim, $list);
-		$count = count($array);
-		for ($i = 0; $i < $count; $i++) {
-			$liTag = $liTag.'<li>'.$array[$i].'</li>';
+	), $atts ) );
+	$liTag = '';
+	if ( $list != '' ) {
+		$array = explode( $delim, $list );
+		$count = count( $array );
+		for ( $i = 0; $i < $count; $i++ ) {
+			$liTag .= '<li>'.$array[$i].'</li>';
 		}
 	}
-	return '<ul class="moreInfo">'.$liTag.'</ul>';
+	$ret  = '';
+	$ret .= '<ul class="moreInfo">';
+	$ret .= $liTag;
+	$ret .= '</ul>';
+	return $ret;
 }
-add_shortcode('timelineInfoList', 'sc_timelineInfoList');
+add_shortcode( 'timelineInfoList', 'sc_timelineInfoList' );
 
 
 //******************************************************************************
 // Google Maps Column
 //******************************************************************************
-function sc_mapColumn($atts, $content = null) {
-	extract(shortcode_atts(array(
+function sc_mapColumn( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'style' => '',
-	), $atts));
-	return '<div id="mapcontainer" style="'.$style.'">'.do_shortcode($content).'</div>';
+	), $atts ) );
+	$styledata = '';
+	if ( $style != '' ) {
+		$styledata = ' style="'.$style.'"';
+	}
+	$ret  = '';
+	$ret .= '<div id="mapcontainer"'.$styledata.'>';
+	$ret .= do_shortcode( $content );
+	$ret .= '</div>';
+	return $ret;
 }
-add_shortcode('mapColumn', 'sc_mapColumn');
+add_shortcode( 'mapColumn', 'sc_mapColumn' );
 
-function sc_mapLocation($atts, $content = null) {
-	extract(shortcode_atts(array(
+
+function sc_mapLocation( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'style' => '',
-	), $atts));
-	return '<div id="addrcolumn" style="'.$style.'">'.do_shortcode($content).'</div>';
+	), $atts ) );
+	$styledata = '';
+	if ( $style != '' ) {
+		$styledata = ' style="'.$style.'"';
+	}
+	$ret  = '';
+	$ret .= '<div id="addrcolumn"'.$styledata.'>';
+	$ret .= do_shortcode( $content );
+	$ret .= '</div>';
+	return $ret;
 }
-add_shortcode('mapLocation', 'sc_mapLocation');
+add_shortcode( 'mapLocation', 'sc_mapLocation' );
 
-function sc_mapFrame($atts, $content = null) {
-	extract(shortcode_atts(array(
+
+function sc_mapFrame( $atts, $content = null ) {
+	extract( shortcode_atts( array(
 			'style' => '',
 			'src' => '',
 			'width' => '320',
-	), $atts));
-	return '<div id="mapcolumn" style="'.$style.'"><div id="mapiframe">'.do_shortcode($content).'<iframe name="mapiframe1" src="'.$src.'" width="'.$width.'"></iframe></div></div>';
+	), $atts ) );
+	$styledata = '';
+	if ( $style != '' ) {
+		$styledata = ' style="'.$style.'"';
+	}
+	$ret  = '';
+	$ret .= '<div id="mapcolumn"'.$styledata.'>';
+	$ret .= '<div id="mapiframe">';
+	$ret .= do_shortcode( $content );
+	$ret .= '<iframe name="mapiframe1" src="'.$src.'" width="'.$width.'"></iframe>';
+	$ret .= '</div>';
+	$ret .= '</div>';
+	return $ret;
 }
-add_shortcode('mapFrame', 'sc_mapFrame');
+add_shortcode( 'mapFrame', 'sc_mapFrame' );
 
-function sc_mapFrameLink($atts) {
-	extract(shortcode_atts(array(
+
+function sc_mapFrameLink( $atts ) {
+	extract( shortcode_atts( array(
 			'title' => '住所',
 			'href' => '',
 			'name' => 'map-marker',
 			'desc' => '大きな地図で見る',
-	), $atts));
-	return '<span id="maptitle">'.$title.'</span>　<sub><i class="icon-fixed-width icon-ellipsis-horizontal"></i></sub><small><a class="largermap ext-link ext-icon-2" href="'.$href.'" rel="external nofollow" target="_blank"><i class="icon-fixed-width icon-'.$name.'"></i>'.$desc.'</a></small>';
+	), $atts ) );
+	$ret  = '';
+	$ret .= '<span id="maptitle">'.$title.'</span>';
+	$ret .= '　<sub>'.do_shortcode( '[iconfont name="ellipsis-horizontal"]' ).'</sub>';
+	$ret .= '<small>';
+	$ret .= '<a class="largermap ext-link ext-icon-2" href="'.$href.'" rel="external nofollow" target="_blank">';
+	$ret .= do_shortcode( '[iconfont name="'.$name.'"]' );
+	$ret .= $desc;
+	$ret .= '</a>';
+	$ret .= '</small>';
+	return $ret;
 }
-add_shortcode('mapFrameLink', 'sc_mapFrameLink');
+add_shortcode( 'mapFrameLink', 'sc_mapFrameLink' );
 ?>
