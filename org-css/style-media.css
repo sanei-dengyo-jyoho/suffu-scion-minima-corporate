@@ -1,0 +1,157 @@
+@media print {
+
+	body {
+		background: none !important;
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* header */
+	#header-container {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	/* sidebar */
+	#sidebar-shell-1,
+	#sidebar-shell-2,
+	.sidebar-shell {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	#sidebar,
+	#sidebar-b,
+	#sidebar-2,
+	#sidebar-2-b {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	#sidebar.left,
+	#sidebar-b.left,
+	#sidebar-2.left,
+	#sidebar-2-b.left,
+	#wsidebar-top.left,
+	#wsidebar-bottom.left {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	#sidebar.right,
+	#sidebar-b.right,
+	#sidebar-2.right,
+	#sidebar-2-b.right,
+	#wsidebar-top.right,
+	#wsidebar-bottom.right {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	#wsidebar-top,
+	#wsidebar-bottom {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	#wsidebar-bottom {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	/* Other Widget Areas */
+	#right-header-widgets,
+	#top-bar-right-widgets {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	#left-header-widgets,
+	#top-bar-left-widgets {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	#horizontal-outer-widgets-1,
+	#horizontal-outer-widgets-2 {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	/* footer */
+	footer {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	/* WP-Plugins */
+	.breadcrumb,
+	.wp-print {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	/* Parallax Image */
+	#postheader,
+	#postheader ul,
+	#postheader ul li,
+	#postheader-content {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+	/* wrapper */
+	#wrapper {
+		background: none !important;
+		clear: both !important;
+		display: block !important;
+		float: none !important;
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		position: relative !important;
+	}
+
+	/* Main column */
+	#container,
+	#main-col,
+	#single-col,
+	#content,
+	.post,
+	article.page {
+		background: none !important;
+		clear: both !important;
+		display: block !important;
+		float: none !important;
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		position: relative !important;
+	}
+
+	#content tr,
+	#content img {
+		page-break-inside: avoid !important;
+	}
+
+	.np {
+		display: none !important;
+		width: 0 !important;
+		height: 0 !important;
+	}
+
+}
