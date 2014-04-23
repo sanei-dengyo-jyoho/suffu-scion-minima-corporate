@@ -17,7 +17,7 @@
 }
 #wpfooter p#footer-left {
 	background: url(../../../wp-content/login/wp-admin-footer.png) no-repeat left top !important;
-	height: 28px; !important
+	height: 28px !important;
 }
 #wpfooter span#footer-thankyou {
 	visibility: hidden !important;
@@ -27,7 +27,7 @@
 }
 #footer p#footer-left {
 	background: url(../../../wp-content/login/wp-admin-footer.png) no-repeat left top !important;
-	height: 28px; !important
+	height: 28px !important;
 }
 #footer span#footer-thankyou {
 	visibility: hidden !important;

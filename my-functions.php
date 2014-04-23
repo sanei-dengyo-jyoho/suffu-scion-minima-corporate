@@ -4,25 +4,37 @@
 /********************************************************************************/
 function ad_custom_head() {
 	if ( !is_admin() ) {
-		echo '
-		<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<!--[if lt IE 7]>
-			<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/IE7.js"></script>
-			<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/ie7-squish.js"></script>
-			<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/minmax.js"></script>
-		<![endif]-->
-		<!--[if lt IE 10]>
-			<script type="text/javascript" src="'.get_bloginfo('url').'/wp-content/js-custom/enhance.js"></script>
-			<script type="text/javascript">
-				enhance({
-					loadScripts: [
-						{src: "'.get_bloginfo('url').'/wp-content/js-custom/excanvas.js", iecondition: "all"}
-					]
-				});
-			</script>
-		<![endif]-->
-		' ;
+		$ret  = "";
+
+		$ret .= "\n";
+		$ret .= "<meta http-equiv='X-Frame-Options' content='SAMEORIGIN'>" . "\n";
+		$ret .= "<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>" . "\n";
+//		$ret .= "<!--[if lt IE 7]>" . "\n";
+//		$ret .= "<script type='text/javascript' src='";
+//		$ret .= get_bloginfo("url");
+//		$ret .= "/wp-content/js-custom/IE7.js'></script>" . "\n";
+//		$ret .= "<script type='text/javascript' src='";
+//		$ret .= get_bloginfo("url");
+//		$ret .= "/wp-content/js-custom/ie7-squish.js'></script>" . "\n";
+//		$ret .= "<script type='text/javascript' src='";
+//		$ret .= get_bloginfo("url");
+//		$ret .= "/wp-content/js-custom/minmax.js'></script>" . "\n";
+//		$ret .= "<![endif]-->" . "\n";
+		$ret .= "<!--[if lt IE 10]>" . "\n";
+		$ret .= "<script type='text/javascript' src='";
+		$ret .= get_bloginfo("url");
+		$ret .= "/wp-content/js-custom/enhance.js'></script>" . "\n";
+		$ret .= "<script type='text/javascript'>" . "\n";
+		$ret .= "enhance({" . "\n";
+		$ret .= "loadScripts: [{src: '";
+		$ret .= get_bloginfo("url");
+		$ret .= "/wp-content/js-custom/excanvas.js'";
+		$ret .= ", iecondition: 'all'}]" . "\n";
+		$ret .= "})" . "\n";
+		$ret .= "</script>" . "\n";
+		$ret .= "<![endif]-->";
+
+		echo $ret, PHP_EOL;
 	}
 }
 
@@ -55,13 +67,13 @@ add_action( 'template_redirect', 'gs_attachment_template_redirect' );
 if ( !current_user_can( 'edit_users' ) ) {
 	function remove_dashboard_widgets() {
 		global $wp_meta_boxes;
-		unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments'] ); // 最近のコメント
-		unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links'] ); // 被リンク
-		unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins'] ); // プラグイン
-		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press'] ); // クイック投稿
-		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts'] ); // 最近の下書き
-		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_primary'] ); // WordPressブログ
-		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'] ); // WordPressフォーラム
+		unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments'] );	// 最近のコメント
+		unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links'] );		// 被リンク
+		unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins'] );			// プラグイン
+		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press'] );			// クイック投稿
+		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts'] );		// 最近の下書き
+		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_primary'] );				// WordPressブログ
+		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'] );			// WordPressフォーラム
 	}
 
 	add_action( 'wp_dashboard_setup', 'remove_dashboard_widgets' );
@@ -78,8 +90,8 @@ function custom_css_file_hooks() {
 
 function custom_css_file_input() {
 	global $post;
-	echo '<input type="hidden" name="custom_css_file_noncename" id="custom_css_file_noncename" value="'.wp_create_nonce( 'custom-css-file' ).'" />';
-	echo '<textarea name="custom_css_file" id="custom_css_file" rows="5" cols="30" style="width:100%;">'.get_post_meta( $post->ID, '_custom_css_file', true ).'</textarea>';
+	echo '<input type="hidden" name="custom_css_file_noncename" id="custom_css_file_noncename" value="' . wp_create_nonce( 'custom-css-file' ) . '" />';
+	echo '<textarea name="custom_css_file" id="custom_css_file" rows="5" cols="30" style="width:100%;">' . get_post_meta( $post->ID, '_custom_css_file', true ) . '</textarea>';
 }
 
 function save_custom_css_file( $post_id ) {
@@ -92,7 +104,10 @@ function save_custom_css_file( $post_id ) {
 function insert_custom_css_file() {
 	if ( is_page() || is_single() ) {
 		if ( have_posts() ) : while ( have_posts() ) : the_post();
-			echo '<link type="text/css" href="'.get_post_meta( get_the_ID(), '_custom_css_file', true ).'" rel="stylesheet" media="all" />';
+			$content = get_post_meta( get_the_ID(), '_custom_css_file', true );
+			if ( $content != '' ) {
+				echo "<link type='text/css' href='" . $content . "' rel='stylesheet' media='all' />", PHP_EOL;
+			}
 		endwhile; endif;
 		rewind_posts();
 	}
@@ -123,8 +138,8 @@ function custom_css_hooks() {
 
 function custom_css_input() {
 	global $post;
-	echo '<input type="hidden" name="custom_css_noncename" id="custom_css_noncename" value="'.wp_create_nonce( 'custom-css' ).'" />';
-	echo '<textarea name="custom_css" id="custom_css" rows="5" cols="30" style="width:100%;">'.get_post_meta( $post->ID, '_custom_css', true ).'</textarea>';
+	echo '<input type="hidden" name="custom_css_noncename" id="custom_css_noncename" value="' . wp_create_nonce( 'custom-css' ) . '" />';
+	echo '<textarea name="custom_css" id="custom_css" rows="5" cols="30" style="width:100%;">' . get_post_meta( $post->ID, '_custom_css', true ) . '</textarea>';
 }
 
 function save_custom_css( $post_id ) {
@@ -137,7 +152,10 @@ function save_custom_css( $post_id ) {
 function insert_custom_css() {
 	if ( is_page() || is_single() ) {
 		if ( have_posts() ) : while ( have_posts() ) : the_post();
-			echo '<style type="text/css">'.get_post_meta( get_the_ID(), '_custom_css', true ).'</style>';
+			$content = get_post_meta( get_the_ID(), '_custom_css', true );
+			if ( $content != '' ) {
+				echo "<style type='text/css'>" . $content . "</style>", PHP_EOL;
+			}
 		endwhile; endif;
 		rewind_posts();
 	}
@@ -145,7 +163,7 @@ function insert_custom_css() {
 
 add_action( 'admin_menu', 'custom_css_hooks' );
 add_action( 'save_post', 'save_custom_css' );
-add_action( 'wp_head','insert_custom_css' );
+add_action( 'wp_head', 'insert_custom_css' );
 
 
 /* 管理者以外には表示しない */
@@ -168,8 +186,8 @@ function custom_js_file_hooks() {
 
 function custom_js_file_input() {
 	global $post;
-	echo '<input type="hidden" name="custom_js_file_noncename" id="custom_js_file_noncename" value="'.wp_create_nonce( 'custom-js-file' ).'" />';
-	echo '<textarea name="custom_js_file" id="custom_js_file" rows="5" cols="30" style="width:100%;">'.get_post_meta( $post->ID, '_custom_js_file', true ).'</textarea>';
+	echo '<input type="hidden" name="custom_js_file_noncename" id="custom_js_file_noncename" value="' . wp_create_nonce( 'custom-js-file' ) . '" />';
+	echo '<textarea name="custom_js_file" id="custom_js_file" rows="5" cols="30" style="width:100%;">' . get_post_meta( $post->ID, '_custom_js_file', true ) . '</textarea>';
 }
 
 function save_custom_js_file( $post_id ) {
@@ -182,7 +200,10 @@ function save_custom_js_file( $post_id ) {
 function insert_custom_js_file() {
 	if ( is_page() || is_single() ) {
 		if ( have_posts() ) : while ( have_posts() ) : the_post();
-			echo '<script type="text/javascript" src="'.get_post_meta( get_the_ID(), '_custom_js_file', true ).'"></script>';
+			$content = get_post_meta( get_the_ID(), '_custom_js_file', true );
+			if ( $content != '' ) {
+				echo "<script type='text/javascript' src='" . $content . "'></script>", PHP_EOL;
+			}
 		endwhile; endif;
 		rewind_posts();
 	}
@@ -190,7 +211,7 @@ function insert_custom_js_file() {
 
 add_action( 'admin_menu', 'custom_js_file_hooks' );
 add_action( 'save_post', 'save_custom_js_file' );
-add_action( 'wp_head','insert_custom_js_file' );
+add_action( 'wp_head', 'insert_custom_js_file' );
 
 
 /* 管理者以外には表示しない */
@@ -214,8 +235,8 @@ function custom_js_hooks() {
 
 function custom_js_input() {
 	global $post;
-	echo '<input type="hidden" name="custom_js_noncename" id="custom_js_noncename" value="'.wp_create_nonce( 'custom-js' ).'" />';
-	echo '<textarea name="custom_js" id="custom_js" rows="5" cols="30" style="width:100%;">'.get_post_meta( $post->ID, '_custom_js', true ).'</textarea>';
+	echo '<input type="hidden" name="custom_js_noncename" id="custom_js_noncename" value="' . wp_create_nonce( 'custom-js' ) . '" />';
+	echo '<textarea name="custom_js" id="custom_js" rows="5" cols="30" style="width:100%;">' . get_post_meta( $post->ID, '_custom_js', true ) . '</textarea>';
 }
 
 function save_custom_js( $post_id ) {
@@ -228,7 +249,10 @@ function save_custom_js( $post_id ) {
 function insert_custom_js() {
 	if ( is_page() || is_single() ) {
 		if ( have_posts() ) : while ( have_posts() ) : the_post();
-			echo '<script type="text/javascript">'.get_post_meta( get_the_ID(), '_custom_js', true ).'</script>';
+			$content = get_post_meta( get_the_ID(), '_custom_js', true );
+			if ( $content != '' ) {
+				echo "<script type='text/javascript'>" . $content . "</script>", PHP_EOL;
+			}
 		endwhile; endif;
 		rewind_posts();
 	}
@@ -236,7 +260,7 @@ function insert_custom_js() {
 
 add_action( 'admin_menu', 'custom_js_hooks' );
 add_action( 'save_post', 'save_custom_js' );
-add_action( 'wp_head','insert_custom_js' );
+add_action( 'wp_head', 'insert_custom_js' );
 
 
 /* 管理者以外には表示しない */
