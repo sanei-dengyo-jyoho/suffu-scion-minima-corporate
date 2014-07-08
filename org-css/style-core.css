@@ -58,6 +58,10 @@ strong {
 	z-index: 998;
 }
 
+.nav-toggle:before {
+	color: #FFFFFF;
+}
+
 
 /**************************************/
 /* Blog title */
